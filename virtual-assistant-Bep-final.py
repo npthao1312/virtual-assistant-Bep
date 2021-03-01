@@ -41,7 +41,7 @@ def hello():
 
 
 #recommend a taylor swift song
-def recommend_TS_song(mood = "happy"):
+def recommend_TS_song(mood):
     if "happy" in mood :
         with open('TS-happy-songs.txt','r') as file:
             happySong = file.read().split("\n*")
@@ -56,17 +56,17 @@ def recommend_TS_song(mood = "happy"):
 
 
 #play the song on Youtube
-def play_on_Youtube():
+def play_on_Youtube(song_Recommend):
     bep_mouth_setting("Do you want to play it?")
-    you = bep_ear_setting()
-    if "yes" in you:
-        result = YoutubeSearch(song_Recommend, max_result=1).to_json()
-        url = json.loads(result)
+    answer = bep_ear_setting()
+    if "yes" in answer:
+        results = YoutubeSearch(song_Recommend, max_results=1).to_json()
+        url = json.loads(results)
         id_url = url["videos"][0]["id"]
-        webbrowser.get("chrome %s").open("https://youtu.be?" + id_url)
+        webbrowser.open("https://youtu.be/" + id_url)
+
     else:
         bep_mouth_setting("Okay")
-
 
 #intro
 greeting = hello()
@@ -90,7 +90,8 @@ while True:
         mood = bep_ear_setting()
         song_Recommend = recommend_TS_song(mood)
         bep_mouth_setting(song_Recommend)
-         
+        play_on_Youtube(song_Recommend)
+
     else:
         bep_mouth_setting("Sorry I can't hear you. Say again")
         you = bep_ear_setting()
