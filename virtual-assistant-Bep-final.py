@@ -41,12 +41,12 @@ def hello():
 
 
 #recommend a taylor swift song
-def recommend_TS_song():
-    if "happy" in you :
+def recommend_TS_song(mood = "happy"):
+    if "happy" in mood :
         with open('TS-happy-songs.txt','r') as file:
             happySong = file.read().split("\n*")
         song_Recommend = str(random.choice(happySong))
-    elif "sad" in you :
+    elif "sad" in mood :
         with open('TS-sad-songs.txt','r') as file:
             sadSong = file.read().split("\n*")
         song_Recommend = str(random.choice(sadSong))
@@ -72,29 +72,25 @@ def play_on_Youtube():
 greeting = hello()
 bep_brain = greeting + ". I'm James. What is your name?"
 bep_mouth_setting(bep_brain)
-you = bep_ear_setting()
+name = bep_ear_setting()
 
-bep_brain = "Hi " + you + ", What can I help you?"
+bep_brain = "Hi " + name + ", What can I help you?"
 bep_mouth_setting(bep_brain)
-you = bep_ear_setting()
+func = bep_ear_setting()
 
 #Functions
 while True:
-    if "today" in you:
+    if "today" in func:
         today = date.today()
         d2 = today.strftime("Today is %B %d, %Y")
         bep_mouth_setting(d2)
 
-    if "song" in you:
+    elif "song" in func:
         bep_mouth_setting("a happy or a sad song?")
-        you = bep_ear_setting()
-        recommend_TS_song()
-        song_Recommend = recommend_TS_song()
-
+        mood = bep_ear_setting()
+        song_Recommend = recommend_TS_song(mood)
+        bep_mouth_setting(song_Recommend)
+         
     else:
         bep_mouth_setting("Sorry I can't hear you. Say again")
         you = bep_ear_setting()
-
-
-
-input()
